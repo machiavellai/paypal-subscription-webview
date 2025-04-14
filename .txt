@@ -1,7 +1,8 @@
 "use client"; // This ensures the page is client-side rendered
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import type { CreateSubscriptionActions, OnApproveData, OnApproveActions } from "@paypal/paypal-js";
+import type { CreateSubscriptionActions, OnApproveData, OnApproveActions } from "@paypal/react-paypal-js";
+
 // Extend the Window interface to include ReactNativeWebView
 declare global {
   interface Window {
@@ -12,17 +13,14 @@ declare global {
 }
 
 export default function Home() {
-
-  const createSubscription = (
-    data: unknown,
-    actions: CreateSubscriptionActions
-  ) => {
+  const createSubscription = (data: unknown, actions: CreateSubscriptionActions) => {
     return actions.subscription.create({
-      plan_id: process.env.NEXT_PUBLIC_PAYPAL_PLAN_ID!,
+      plan_id: "P-XYZ", // Replace with your Plan ID from Step 2
     });
   };
 
-  const onApprove = async (data: OnApproveData, actions: OnApproveActions): Promise<void> => {
+  const onApprove = (data: OnApproveData, actions: OnApproveActions) => {
+    // Ensure subscriptionID exists before proceeding
     if (!data.subscriptionID) {
       const message = JSON.stringify({
         type: "SUBSCRIPTION_ERROR",
@@ -42,24 +40,14 @@ export default function Home() {
     alert(`Subscription successful! Subscription ID: ${data.subscriptionID}`);
   };
 
-  const onError = (err: Record<string, unknown>) => {
-    const errorMessage = err.message || "An unknown error occurred";
+  const onError = (err: Error) => {
     const message = JSON.stringify({
       type: "SUBSCRIPTION_ERROR",
-      error: errorMessage,
+      error: err.message,
     });
     window.ReactNativeWebView?.postMessage(message);
-    alert(`Error: ${errorMessage}`);
+    alert(`Error: ${err.message}`);
   };
-
-  // const onError = (err: Error) => {
-  //   const message = JSON.stringify({
-  //     type: "SUBSCRIPTION_ERROR",
-  //     error: err.message,
-  //   });
-  //   window.ReactNativeWebView?.postMessage(message);
-  //   alert(`Error: ${err.message}`);
-  // };
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
