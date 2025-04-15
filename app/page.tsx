@@ -38,7 +38,18 @@ export default function Home() {
       type: "SUBSCRIPTION_SUCCESS",
       subscriptionID: data.subscriptionID,
     });
-    window.ReactNativeWebView?.postMessage(message);
+
+    // If in a WebView, post the message
+    if (window.ReactNativeWebView) {
+
+      window.ReactNativeWebView.postMessage(message);
+    } else {
+      // If in a browser, redirect back to the app using a deep link
+      window.location.href = `kingdomcomicsapp://payment-callback?data=${encodeURIComponent(message)}`;
+      console.log("Subscription ID:", data.subscriptionID);
+    }
+
+    // console.log("Subscription ID:", data.subscriptionID);
     alert(`Subscription successful! Subscription ID: ${data.subscriptionID}`);
   };
 

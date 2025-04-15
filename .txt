@@ -1,3 +1,64 @@
+
+const onApprove = async (data: OnApproveData, actions: unknown): Promise<void> => {
+  if (!data.subscriptionID) {
+    const message = JSON.stringify({
+      type: "SUBSCRIPTION_ERROR",
+      error: "Subscription ID is missing",
+    });
+    window.ReactNativeWebView?.postMessage(message);
+    alert("Error: Subscription ID is missing");
+    return;
+  }
+
+  const message = JSON.stringify({
+    type: "SUBSCRIPTION_SUCCESS",
+    subscriptionID: data.subscriptionID,
+  });
+
+  // If in a WebView, post the message
+  if (window.ReactNativeWebView) {
+    window.ReactNativeWebView.postMessage(message);
+  } else {
+    // If in a browser, redirect back to the app using a deep link
+    window.location.href = `comicsapp://payment-callback?data=${encodeURIComponent(message)}`;
+  }
+
+  alert(`Subscription successful! Subscription ID: ${data.subscriptionID}`);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 "use client"; // This ensures the page is client-side rendered
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
