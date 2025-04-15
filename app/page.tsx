@@ -33,6 +33,8 @@ export default function Home() {
       return;
     }
 
+    //ch
+
     // Send the subscription ID back to the React Native app
     const message = JSON.stringify({
       type: "SUBSCRIPTION_SUCCESS",
