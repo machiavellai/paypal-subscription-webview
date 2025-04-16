@@ -10,6 +10,7 @@ declare global {
     };
   }
 }
+//.
 
 export default function Home() {
 
