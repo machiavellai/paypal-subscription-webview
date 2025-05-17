@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.kingdomcomics.app",
+      "sha256_cert_fingerprints": [
+        "B5:13:D6:65:DE:4D:35:FC:64:69:6A:95:6C:0D:57:6C:84:7B:1E:85:99:D1:14:00:B3:22:5E:CC:0B:C6:50:5E"
+      ]
+    }
+  }
+]
