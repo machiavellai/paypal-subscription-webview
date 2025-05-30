@@ -40,7 +40,7 @@ export default function Home() {
         type: "SUBSCRIPTION_ERROR",
         error: "Subscription ID is missing",
       });
-
+//fix
       if (window.ReactNativeWebView) {
         console.log("Posting error message to WebView:", message);
         // If in a WebView, post the message
