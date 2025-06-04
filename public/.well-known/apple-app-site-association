@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "837T9FW72Q.com.kingdomcomics.ap",
+        "paths": ["/payment-callback", "/*"]
+      }
+    ]
+  }
+}

@@ -17,7 +17,7 @@ declare global {
 
 export default function Home() {
 
-//123SUBS
+  //123SUBS
   const [isProcessing, setIsProcessing] = useState(false);
 
   const createSubscription = (
@@ -40,7 +40,7 @@ export default function Home() {
         type: "SUBSCRIPTION_ERROR",
         error: "Subscription ID is missing",
       });
-//fix
+      //fix
       if (window.ReactNativeWebView) {
         console.log("Posting error message to WebView:", message);
         // If in a WebView, post the message
@@ -70,8 +70,10 @@ export default function Home() {
       // If in a browser, redirect back to the app using a deep link
       console.log("Redirecting to app with deep link...");
       setTimeout(() => {
-        window.location.href = `kingdomcomicsapp://payment-callback?data=${encodeURIComponent(message)}`;
-        console.log("Subscription ID:", data.subscriptionID);
+        window.location.href =
+          "https://paypal-subscription-webview.vercel.app/payment-callback?data=" + encodeURIComponent(JSON.stringify({
+            type: "SUBSCRIPTION_SUCCESS", subscriptionID: "sub_123"
+          })); console.log("Subscription ID:", data.subscriptionID);
       }, 2000); // Optional delay before redirecting
     }
     // // console.log("Subscription ID:", data.subscriptionID);
